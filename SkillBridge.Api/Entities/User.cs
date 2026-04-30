@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography.X509Certificates;
-
+{
 public class User
 {
     [Required, Key]
@@ -18,3 +18,4 @@ public class User
     
     public bool IsActive { get; get; }
     }
+}
