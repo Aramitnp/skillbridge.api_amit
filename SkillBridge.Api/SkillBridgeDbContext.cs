@@ -1,4 +1,4 @@
-using SkillBridge.Api.Entities;
+using Microsoft.EntityFrameworkCore;
 
 public class SkillBridgeDbContext : DbContext
 {
