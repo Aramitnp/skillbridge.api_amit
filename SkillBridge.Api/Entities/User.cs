@@ -24,4 +24,9 @@ public class User
     public DateTime CreatedAt { get; set; }
 
     public bool IsActive { get; set; }
+
+    public ICollection<Job> Jobs { get; set; } = new List<Job>();
+
+    public ICollection<JobApplication> JobApplications { get; set; } =
+        new List<JobApplication>();
 }

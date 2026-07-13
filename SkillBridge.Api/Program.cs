@@ -89,6 +89,8 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IJobRepository, JobRepository>();
+builder.Services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
 builder.Services.AddSingleton<ITokenService, JwtTokenService>();
 
 builder.Services.AddDbContext<SkillBridgeDbContext>(options =>
