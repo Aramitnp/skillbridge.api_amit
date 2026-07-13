@@ -1,0 +1,6 @@
+@model EditJobViewModel
+@{ ViewData["Title"] = "Edit job"; }
+<div class="form-card card mx-auto"><div class="card-body p-4 p-md-5"><p class="text-primary fw-semibold mb-1">Company area</p><h1 class="h3">Edit job</h1>
+<form method="post" novalidate><input asp-for="Id" type="hidden" /><partial name="_JobForm" model="Model" /><div class="d-flex gap-2"><button class="btn btn-primary" type="submit">Save changes</button><a class="btn btn-outline-secondary" asp-action="MyJobs">Cancel</a></div></form>
+</div></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

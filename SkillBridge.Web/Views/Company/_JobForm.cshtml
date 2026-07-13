@@ -1,0 +1,13 @@
+@model JobFormViewModel
+<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+<div class="mb-3"><label asp-for="Title" class="form-label"></label><input asp-for="Title" class="form-control" /><span asp-validation-for="Title" class="text-danger"></span></div>
+<div class="mb-3"><label asp-for="Description" class="form-label"></label><textarea asp-for="Description" class="form-control" rows="8"></textarea><span asp-validation-for="Description" class="text-danger"></span></div>
+<div class="row g-3 mb-3">
+    <div class="col-md-6"><label asp-for="MinimumSalary" class="form-label"></label><input asp-for="MinimumSalary" class="form-control" /><span asp-validation-for="MinimumSalary" class="text-danger"></span></div>
+    <div class="col-md-6"><label asp-for="MaximumSalary" class="form-label"></label><input asp-for="MaximumSalary" class="form-control" /><span asp-validation-for="MaximumSalary" class="text-danger"></span></div>
+</div>
+<div class="row g-3 mb-3">
+    <div class="col-md-6"><label asp-for="Location" class="form-label"></label><input asp-for="Location" class="form-control" /><span asp-validation-for="Location" class="text-danger"></span></div>
+    <div class="col-md-6"><label asp-for="JobType" class="form-label"></label><input asp-for="JobType" class="form-control" placeholder="Full-time" /><span asp-validation-for="JobType" class="text-danger"></span></div>
+</div>
+<div class="mb-4"><label asp-for="Deadline" class="form-label"></label><input asp-for="Deadline" class="form-control" type="datetime-local" asp-format="{0:yyyy-MM-ddTHH:mm}" /><span asp-validation-for="Deadline" class="text-danger"></span></div>

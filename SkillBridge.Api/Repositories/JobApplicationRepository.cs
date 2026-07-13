@@ -204,6 +204,7 @@ public class JobApplicationRepository : IJobApplicationRepository
             Id = application.Id,
             JobId = application.JobId,
             JobTitle = application.Job.Title,
+            CompanyName = application.Job.Company.Name,
             ApplicantId = application.ApplicantId,
             ApplicantName = application.Applicant.Name,
             ApplicantEmail = application.Applicant.Email,

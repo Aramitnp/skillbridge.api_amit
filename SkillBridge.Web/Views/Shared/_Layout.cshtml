@@ -1,0 +1,76 @@
+@{
+    var userName = Context.Session.GetString(SessionKeys.UserName);
+    var userType = Context.Session.GetString(SessionKeys.UserType);
+    var isLoggedIn = !string.IsNullOrWhiteSpace(Context.Session.GetString(SessionKeys.AccessToken));
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SkillBridge</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">SkillBridge</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Jobs" asp-action="Index">Browse jobs</a></li>
+                        @if (userType == "Applicant")
+                        {
+                            <li class="nav-item"><a class="nav-link" asp-controller="Applicant" asp-action="Dashboard">Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Applicant" asp-action="Applications">My applications</a></li>
+                        }
+                        else if (userType == "Company")
+                        {
+                            <li class="nav-item"><a class="nav-link" asp-controller="Company" asp-action="Dashboard">Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Company" asp-action="MyJobs">My jobs</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Company" asp-action="Applications">Applications</a></li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav align-items-lg-center">
+                        @if (isLoggedIn)
+                        {
+                            <li class="nav-item"><span class="navbar-text me-lg-3">@userName <small>(@userType)</small></span></li>
+                            <li class="nav-item"><form asp-controller="Account" asp-action="Logout" method="post"><button class="btn btn-outline-light btn-sm" type="submit">Sign out</button></form></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Login">Sign in</a></li>
+                            <li class="nav-item"><a class="btn btn-light btn-sm ms-lg-2" asp-controller="Account" asp-action="Register">Create account</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-4">
+        @if (TempData["Success"] is string success)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">@success<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+        }
+        @if (TempData["Error"] is string error)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">@error<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+        }
+        @if (ViewData["Error"] is string viewError)
+        {
+            <div class="alert alert-danger" role="alert">@viewError</div>
+        }
+        @RenderBody()
+    </main>
+
+    <footer class="border-top py-4 mt-5 text-secondary"><div class="container d-flex flex-wrap justify-content-between gap-2"><span>&copy; @DateTime.Now.Year SkillBridge</span><span>Connecting applicants and companies</span></div></footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

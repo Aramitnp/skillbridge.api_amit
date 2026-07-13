@@ -1,0 +1,16 @@
+@model IReadOnlyList<JobApplicationViewModel>
+@{ ViewData["Title"] = "My applications"; }
+<div class="mb-4"><p class="text-primary fw-semibold mb-1">Applicant area</p><h1 class="h2">My applications</h1><p class="text-secondary">Track the latest status for every role you have applied to.</p></div>
+@if (Model.Count == 0)
+{
+    <div class="empty-state text-center"><h2 class="h4">No applications yet</h2><p>Explore current openings and submit your first application.</p><a class="btn btn-primary" asp-controller="Jobs" asp-action="Index">Browse jobs</a></div>
+}
+else
+{
+    <div class="table-responsive card"><table class="table align-middle mb-0"><thead><tr><th>Job</th><th>Company</th><th>Applied</th><th>Cover letter</th><th>Status</th></tr></thead><tbody>
+    @foreach (var application in Model)
+    {
+        <tr><td><a asp-controller="Jobs" asp-action="Details" asp-route-id="@application.JobId">@application.JobTitle</a></td><td>@application.CompanyName</td><td>@application.AppliedDate.ToLocalTime().ToString("MMM d, yyyy")</td><td><details><summary>Read</summary><p class="mt-2 application-letter">@application.CoverLetter</p></details></td><td><span class="status status-@application.Status.ToLowerInvariant()">@application.Status</span></td></tr>
+    }
+    </tbody></table></div>
+}

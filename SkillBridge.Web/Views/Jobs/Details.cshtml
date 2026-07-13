@@ -1,0 +1,27 @@
+@model JobDetailsViewModel
+@{ ViewData["Title"] = Model.Job.Title; }
+<div class="row g-4">
+    <div class="col-lg-8">
+        <article class="card"><div class="card-body p-4">
+            <div class="d-flex flex-wrap gap-2 mb-3"><span class="badge text-bg-primary">@Model.Job.JobType</span><span class="badge text-bg-light">@Model.Job.Location</span></div>
+            <h1 class="h2">@Model.Job.Title</h1><p class="lead text-secondary">@Model.Job.CompanyName</p><hr />
+            <h2 class="h5">About this role</h2><p class="job-description">@Model.Job.Description</p>
+        </div></article>
+    </div>
+    <aside class="col-lg-4"><div class="card sticky-lg-top"><div class="card-body p-4">
+        <h2 class="h5">Job summary</h2>
+        <dl class="mb-4"><dt>Salary</dt><dd>@Model.Job.MinimumSalary.ToString("N0") – @Model.Job.MaximumSalary.ToString("N0")</dd><dt>Posted</dt><dd>@Model.Job.PostedDate.ToLocalTime().ToString("MMM d, yyyy")</dd><dt>Deadline</dt><dd>@Model.Job.Deadline.ToLocalTime().ToString("MMM d, yyyy")</dd><dt>Status</dt><dd>@(Model.Job.IsActive ? "Active" : "Inactive")</dd></dl>
+        @if (!Model.IsLoggedIn)
+        {
+            <a class="btn btn-primary w-100" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Url.Action("Apply", "Jobs", new { id = Model.Job.Id })">Sign in to apply</a>
+        }
+        else if (Model.UserType == "Applicant" && Model.Job.IsActive)
+        {
+            <a class="btn btn-primary w-100" asp-action="Apply" asp-route-id="@Model.Job.Id">Apply now</a>
+        }
+        else
+        {
+            <p class="small text-secondary mb-0">Company accounts cannot apply for jobs.</p>
+        }
+    </div></div></aside>
+</div>

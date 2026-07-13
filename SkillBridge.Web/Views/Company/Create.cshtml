@@ -1,0 +1,6 @@
+@model JobFormViewModel
+@{ ViewData["Title"] = "Post a job"; }
+<div class="form-card card mx-auto"><div class="card-body p-4 p-md-5"><p class="text-primary fw-semibold mb-1">Company area</p><h1 class="h3">Post a new job</h1><p class="text-secondary">Provide clear information to help applicants assess the role.</p>
+<form method="post" novalidate><partial name="_JobForm" model="Model" /><div class="d-flex gap-2"><button class="btn btn-primary" type="submit">Create job</button><a class="btn btn-outline-secondary" asp-action="MyJobs">Cancel</a></div></form>
+</div></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

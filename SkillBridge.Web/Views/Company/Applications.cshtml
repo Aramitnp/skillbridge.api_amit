@@ -1,0 +1,18 @@
+@model IReadOnlyList<JobApplicationViewModel>
+@{ ViewData["Title"] = "Applications received"; }
+<div class="mb-4"><p class="text-primary fw-semibold mb-1">Company area</p><h1 class="h2">Applications received</h1><p class="text-secondary">Review candidates across all of your jobs.</p></div>
+@if (Model.Count == 0)
+{
+    <div class="empty-state">No applications have been received yet.</div>
+}
+else
+{
+    <div class="table-responsive card"><table class="table align-middle mb-0"><thead><tr><th>Applicant</th><th>Job</th><th>Cover letter</th><th>Status</th></tr></thead><tbody>
+    @foreach (var application in Model)
+    {
+        <tr><td><strong>@application.ApplicantName</strong><br /><small>@application.ApplicantEmail</small></td><td>@application.JobTitle<br /><small>@application.AppliedDate.ToLocalTime().ToString("MMM d, yyyy")</small></td><td><details><summary>Read</summary><p class="mt-2 application-letter">@application.CoverLetter</p></details></td><td>
+            <form asp-action="UpdateStatus" method="post" class="d-flex gap-2"><input type="hidden" name="id" value="@application.Id" /><select name="status" class="form-select form-select-sm" aria-label="Status for @application.ApplicantName"><option selected="@(application.Status == "Pending")">Pending</option><option selected="@(application.Status == "Reviewed")">Reviewed</option><option selected="@(application.Status == "Shortlisted")">Shortlisted</option><option selected="@(application.Status == "Rejected")">Rejected</option><option selected="@(application.Status == "Accepted")">Accepted</option></select><button class="btn btn-sm btn-outline-primary" type="submit">Save</button></form>
+        </td></tr>
+    }
+    </tbody></table></div>
+}

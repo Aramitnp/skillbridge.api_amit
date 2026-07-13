@@ -1,0 +1,12 @@
+@model ApplyJobViewModel
+@{ ViewData["Title"] = "Apply"; }
+<div class="form-card card mx-auto"><div class="card-body p-4 p-md-5">
+    <p class="text-primary fw-semibold mb-1">Job application</p><h1 class="h3">Apply for @Model.JobTitle</h1>
+    <form method="post" novalidate>
+        <input asp-for="JobId" type="hidden" /><input asp-for="JobTitle" type="hidden" />
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <div class="mb-4"><label asp-for="CoverLetter" class="form-label"></label><textarea asp-for="CoverLetter" class="form-control" rows="10" placeholder="Explain why you are a good fit for this role."></textarea><span asp-validation-for="CoverLetter" class="text-danger"></span><div class="form-text">10–2,000 characters.</div></div>
+        <div class="d-flex gap-2"><button class="btn btn-primary" type="submit">Submit application</button><a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@Model.JobId">Cancel</a></div>
+    </form>
+</div></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

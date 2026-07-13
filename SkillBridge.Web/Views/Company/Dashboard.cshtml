@@ -1,0 +1,23 @@
+@model CompanyDashboardViewModel
+@{ ViewData["Title"] = "Company dashboard"; }
+<div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4"><div><p class="text-primary fw-semibold mb-1">Company dashboard</p><h1 class="h2 mb-0">Hiring overview</h1></div><a class="btn btn-primary" asp-action="Create">Post a job</a></div>
+<div class="row g-3 mb-5">
+    <div class="col-6 col-lg-3"><div class="stat-card"><span>Total jobs</span><strong>@Model.TotalJobs</strong></div></div>
+    <div class="col-6 col-lg-3"><div class="stat-card"><span>Active jobs</span><strong>@Model.ActiveJobs</strong></div></div>
+    <div class="col-6 col-lg-3"><div class="stat-card"><span>Inactive jobs</span><strong>@Model.InactiveJobs</strong></div></div>
+    <div class="col-6 col-lg-3"><div class="stat-card"><span>Applications</span><strong>@Model.TotalApplicationsReceived</strong></div></div>
+</div>
+<div class="d-flex justify-content-between align-items-center mb-3"><h2 class="h4 mb-0">Recent applicants</h2><a asp-action="Applications">View all</a></div>
+@if (Model.RecentApplications.Count == 0)
+{
+    <div class="empty-state">No applications have been received yet.</div>
+}
+else
+{
+    <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Applicant</th><th>Job</th><th>Applied</th><th>Status</th></tr></thead><tbody>
+    @foreach (var application in Model.RecentApplications)
+    {
+        <tr><td><strong>@application.ApplicantName</strong><br /><small>@application.ApplicantEmail</small></td><td>@application.JobTitle</td><td>@application.AppliedDate.ToLocalTime().ToString("MMM d, yyyy")</td><td><span class="status status-@application.Status.ToLowerInvariant()">@application.Status</span></td></tr>
+    }
+    </tbody></table></div>
+}

@@ -1,0 +1,28 @@
+@model IReadOnlyList<JobViewModel>
+@{ ViewData["Title"] = "My jobs"; }
+<div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4"><div><p class="text-primary fw-semibold mb-1">Company area</p><h1 class="h2 mb-0">My jobs</h1></div><a class="btn btn-primary" asp-action="Create">Post a job</a></div>
+@if (Model.Count == 0)
+{
+    <div class="empty-state text-center"><h2 class="h4">No jobs posted yet</h2><p>Create your first vacancy to start receiving applications.</p><a class="btn btn-primary" asp-action="Create">Create job</a></div>
+}
+else
+{
+    <div class="table-responsive card"><table class="table align-middle mb-0"><thead><tr><th>Job</th><th>Deadline</th><th>Status</th><th class="text-end">Actions</th></tr></thead><tbody>
+    @foreach (var job in Model)
+    {
+        <tr>
+            <td><strong>@job.Title</strong><br /><small>@job.Location · @job.JobType</small></td>
+            <td>@job.Deadline.ToLocalTime().ToString("MMM d, yyyy")</td>
+            <td><span class="status @(job.IsActive ? "status-active" : "status-inactive")">@(job.IsActive ? "Active" : "Inactive")</span></td>
+            <td class="text-end"><div class="d-inline-flex flex-wrap justify-content-end gap-2">
+                <a class="btn btn-sm btn-outline-primary" asp-action="JobApplications" asp-route-id="@job.Id">Applications</a>
+                @if (job.IsActive)
+                {
+                    <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@job.Id">Edit</a>
+                    <form asp-action="Deactivate" asp-route-id="@job.Id" method="post" onsubmit="return confirm('Deactivate this job?');"><button class="btn btn-sm btn-outline-danger" type="submit">Deactivate</button></form>
+                }
+            </div></td>
+        </tr>
+    }
+    </tbody></table></div>
+}
