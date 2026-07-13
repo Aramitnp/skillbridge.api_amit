@@ -22,6 +22,7 @@ main { min-height: 70vh; }
 .stat-card { height: 100%; padding: 1.25rem; border: 1px solid #e2e8f0; border-radius: 1rem; background: white; }
 .stat-card span { display: block; color: var(--sb-muted); }
 .stat-card strong { display: block; margin-top: .3rem; font-size: 2rem; }
+.benefit-card { height: 100%; padding: 1.25rem; border: 1px solid #e2e8f0; border-radius: 1rem; background: white; }
 .table { --bs-table-bg: transparent; }
 .table thead th { color: var(--sb-muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
 .status { display: inline-block; padding: .3rem .6rem; border-radius: 999px; font-size: .8rem; font-weight: 600; background: #e2e8f0; }
@@ -39,5 +40,6 @@ dd { margin-bottom: 1rem; }
 @media (max-width: 767.98px) {
   .hero { padding: 2rem !important; }
   .display-5 { font-size: 2.25rem; }
+  .navbar-brand { max-width: 75%; white-space: normal; line-height: 1.15; }
   .table-responsive.card { border-radius: .75rem; }
 }

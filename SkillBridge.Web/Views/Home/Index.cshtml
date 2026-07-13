@@ -1,26 +1,37 @@
 @model HomeViewModel
 @{
-    ViewData["Title"] = "Find your next opportunity";
+    ViewData["Title"] = "Employment opportunities across Nepal";
 }
 
 <section class="hero rounded-4 p-4 p-md-5 mb-5">
     <div class="row align-items-center g-4">
         <div class="col-lg-7">
-            <span class="badge text-bg-light text-primary mb-3">Careers made simpler</span>
-            <h1 class="display-5 fw-bold">Build the bridge to your next opportunity.</h1>
-            <p class="lead mb-4">Discover roles from growing companies, apply with confidence, and track every application in one place.</p>
+            <span class="badge text-bg-light text-primary mb-3">Powered by SkillBridge</span>
+            <h1 class="display-5 fw-bold">Find the Right Opportunity with Elevate Workforce Solutions</h1>
+            <p class="lead mb-3">Elevate Workforce Solutions is a Nepal-based employment agency that connects job seekers with suitable employers.</p>
+            <p class="mb-4">Our portal promotes equal employment opportunities, transparent recruitment, and easier access to available jobs across Nepal.</p>
             <div class="d-flex flex-wrap gap-2">
                 <a class="btn btn-light btn-lg" asp-controller="Jobs" asp-action="Index">Browse jobs</a>
-                <a class="btn btn-outline-light btn-lg" asp-controller="Account" asp-action="Register">Join SkillBridge</a>
+                <a class="btn btn-outline-light btn-lg" asp-controller="Account" asp-action="Register">Register</a>
             </div>
         </div>
         <div class="col-lg-5">
             <div class="hero-panel rounded-4 p-4">
-                <h2 class="h4">For companies</h2>
-                <p>Publish vacancies, manage candidates, and keep hiring decisions organized.</p>
+                <h2 class="h4">For applicants and employers</h2>
+                <p>Explore suitable jobs, submit applications, publish vacancies, and keep recruitment organized.</p>
                 <a class="link-light fw-semibold" asp-controller="Account" asp-action="Register">Create a company account →</a>
             </div>
         </div>
+    </div>
+</section>
+
+<section class="mb-5" aria-labelledby="benefits-title">
+    <div class="mb-3"><p class="text-primary fw-semibold mb-1">Why use the portal?</p><h2 id="benefits-title" class="h3">A simpler employment process</h2></div>
+    <div class="row g-3">
+        <div class="col-sm-6 col-lg-3"><div class="benefit-card"><h3 class="h6">Easy job access</h3><p class="mb-0 text-secondary">Find current opportunities from employers across Nepal.</p></div></div>
+        <div class="col-sm-6 col-lg-3"><div class="benefit-card"><h3 class="h6">Transparent applications</h3><p class="mb-0 text-secondary">Apply online and follow each application status clearly.</p></div></div>
+        <div class="col-sm-6 col-lg-3"><div class="benefit-card"><h3 class="h6">Equal opportunity</h3><p class="mb-0 text-secondary">Applicants can access the same published vacancy information.</p></div></div>
+        <div class="col-sm-6 col-lg-3"><div class="benefit-card"><h3 class="h6">Simple job management</h3><p class="mb-0 text-secondary">Companies can manage vacancies and applicants in one place.</p></div></div>
     </div>
 </section>
 
@@ -52,4 +63,12 @@
             }
         </div>
     }
+</section>
+
+<section class="card mt-5" aria-labelledby="about-title">
+    <div class="card-body p-4 p-md-5">
+        <p class="text-primary fw-semibold mb-1">About us</p>
+        <h2 id="about-title" class="h3">Connecting applicants and employers in Nepal</h2>
+        <p class="mb-0 text-secondary">Elevate Workforce Solutions supports transparent recruitment and better access to employment opportunities. This platform was developed using SkillBridge technology to help applicants and employers manage the recruitment process more easily.</p>
+    </div>
 </section>

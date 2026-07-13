@@ -1,7 +1,8 @@
 @model RegisterViewModel
 @{ ViewData["Title"] = "Create account"; }
 <div class="auth-card card mx-auto shadow-sm"><div class="card-body p-4 p-md-5">
-    <h1 class="h3">Create your SkillBridge account</h1>
+    <p class="text-primary fw-semibold mb-1">Elevate Workforce Solutions</p>
+    <h1 class="h3">Create your account</h1>
     <p class="text-secondary">Choose the account type that matches how you will use the platform.</p>
     <form method="post" novalidate>
         <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
@@ -12,6 +13,6 @@
         <div class="mb-4"><label asp-for="ConfirmPassword" class="form-label"></label><input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" /><span asp-validation-for="ConfirmPassword" class="text-danger"></span></div>
         <button class="btn btn-primary w-100" type="submit">Create account</button>
     </form>
-    <p class="text-center mt-3 mb-0">Already registered? <a asp-action="Login">Sign in</a></p>
+    <p class="text-center mt-3 mb-0">Already registered? <a asp-action="Login">Sign in</a> · Powered by SkillBridge</p>
 </div></div>
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

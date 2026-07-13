@@ -1,7 +1,8 @@
 @model LoginViewModel
 @{ ViewData["Title"] = "Sign in"; }
 <div class="auth-card card mx-auto shadow-sm"><div class="card-body p-4 p-md-5">
-    <h1 class="h3">Welcome back</h1><p class="text-secondary">Sign in to manage your SkillBridge account.</p>
+    <p class="text-primary fw-semibold mb-1">Elevate Workforce Solutions</p>
+    <h1 class="h3">Welcome back</h1><p class="text-secondary">Sign in to manage your account. Powered by SkillBridge.</p>
     <form method="post" novalidate>
         <input asp-for="ReturnUrl" type="hidden" />
         <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
@@ -9,6 +10,6 @@
         <div class="mb-4"><label asp-for="Password" class="form-label"></label><input asp-for="Password" class="form-control" autocomplete="current-password" /><span asp-validation-for="Password" class="text-danger"></span></div>
         <button class="btn btn-primary w-100" type="submit">Sign in</button>
     </form>
-    <p class="text-center mt-3 mb-0">New to SkillBridge? <a asp-action="Register">Create an account</a></p>
+    <p class="text-center mt-3 mb-0">New to the portal? <a asp-action="Register">Create an account</a></p>
 </div></div>
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

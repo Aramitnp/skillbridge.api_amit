@@ -1,6 +1,6 @@
 @model CompanyDashboardViewModel
-@{ ViewData["Title"] = "Company dashboard"; }
-<div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4"><div><p class="text-primary fw-semibold mb-1">Company dashboard</p><h1 class="h2 mb-0">Hiring overview</h1></div><a class="btn btn-primary" asp-action="Create">Post a job</a></div>
+@{ ViewData["Title"] = "Company Dashboard"; }
+<div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4"><div><p class="text-primary fw-semibold mb-1">Company Dashboard</p><h1 class="h2 mb-0">Hiring overview</h1></div><a class="btn btn-primary" asp-action="Create">Post a Job</a></div>
 <div class="row g-3 mb-5">
     <div class="col-6 col-lg-3"><div class="stat-card"><span>Total jobs</span><strong>@Model.TotalJobs</strong></div></div>
     <div class="col-6 col-lg-3"><div class="stat-card"><span>Active jobs</span><strong>@Model.ActiveJobs</strong></div></div>

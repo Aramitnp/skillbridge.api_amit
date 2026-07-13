@@ -23,7 +23,7 @@ public class JobsController : Controller
         CancellationToken cancellationToken = default)
     {
         page = Math.Max(1, page);
-        var query = $"api/jobs?pageNumber={page}&pageSize=9" +
+        var query = $"api/jobs?pageNumber={page}&pageSize=3" +
             $"&search={Uri.EscapeDataString(search ?? string.Empty)}" +
             $"&location={Uri.EscapeDataString(location ?? string.Empty)}" +
             $"&jobType={Uri.EscapeDataString(jobType ?? string.Empty)}";
