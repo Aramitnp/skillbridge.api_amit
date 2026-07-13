@@ -1,3 +1,6 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SkillBridge.Api.Repositories;
 using SkillBridge.Api.Repositories.Interfaces;
@@ -20,6 +23,7 @@ public class UserController : ControllerBase
         _tokenService = tokenService;
     }
 
+    [AllowAnonymous]
     [HttpPost("create")]
     public async Task<ActionResult<UserRegistrationResponseDto>> Create(
         CreateUserRequestDto request,
@@ -48,6 +52,7 @@ public class UserController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<ActionResult<LoginResponseDto>> Login(
         LoginRequestDto request,
@@ -84,6 +89,55 @@ public class UserController : ControllerBase
             Name = loginResult.Name,
             Email = loginResult.Email,
             Type = loginResult.Type
+        });
+    }
+
+    [Authorize]
+    [HttpGet("me")]
+    public ActionResult Me()
+    {
+        var userIdClaim = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+        var name = User.FindFirstValue(JwtRegisteredClaimNames.Name);
+        var email = User.FindFirstValue(JwtRegisteredClaimNames.Email);
+        var role = User.FindFirstValue("role");
+
+        if (!int.TryParse(userIdClaim, out var userId) ||
+            string.IsNullOrWhiteSpace(name) ||
+            string.IsNullOrWhiteSpace(email) ||
+            string.IsNullOrWhiteSpace(role))
+        {
+            return Unauthorized(new
+            {
+                message = "Valid authentication claims are required."
+            });
+        }
+
+        return Ok(new
+        {
+            userId,
+            name,
+            email,
+            type = role
+        });
+    }
+
+    [Authorize(Policy = SupportedUserTypes.Applicant)]
+    [HttpGet("applicant-access")]
+    public ActionResult ApplicantAccess()
+    {
+        return Ok(new
+        {
+            message = "Applicant access granted."
+        });
+    }
+
+    [Authorize(Policy = SupportedUserTypes.Company)]
+    [HttpGet("company-access")]
+    public ActionResult CompanyAccess()
+    {
+        return Ok(new
+        {
+            message = "Company access granted."
         });
     }
 }

@@ -78,7 +78,15 @@ builder.Services
         };
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(
+        SupportedUserTypes.Applicant,
+        policy => policy.RequireRole(SupportedUserTypes.Applicant));
+    options.AddPolicy(
+        SupportedUserTypes.Company,
+        policy => policy.RequireRole(SupportedUserTypes.Company));
+});
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<ITokenService, JwtTokenService>();
