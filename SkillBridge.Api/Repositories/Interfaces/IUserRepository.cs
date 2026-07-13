@@ -5,4 +5,8 @@ public interface IUserRepository
     Task<User> CreateUserAsync(
         CreateUserRequestDto request,
         CancellationToken cancellationToken = default);
+
+    Task<UserLoginResult> AuthenticateAsync(
+        LoginRequestDto request,
+        CancellationToken cancellationToken = default);
 }

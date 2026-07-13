@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SkillBridge.Api.Repositories;
 using SkillBridge.Api.Repositories.Interfaces;
+using SkillBridge.Api.Services.Interfaces;
 
 namespace SkillBridge.Api.Controllers;
 
@@ -9,10 +10,14 @@ namespace SkillBridge.Api.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserRepository _userRepository;
+    private readonly ITokenService _tokenService;
 
-    public UserController(IUserRepository userRepository)
+    public UserController(
+        IUserRepository userRepository,
+        ITokenService tokenService)
     {
         _userRepository = userRepository;
+        _tokenService = tokenService;
     }
 
     [HttpPost("create")]
@@ -41,5 +46,44 @@ public class UserController : ControllerBase
                 message = "A user with this email address already exists."
             });
         }
+    }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<LoginResponseDto>> Login(
+        LoginRequestDto request,
+        CancellationToken cancellationToken)
+    {
+        var loginResult = await _userRepository.AuthenticateAsync(
+            request,
+            cancellationToken);
+
+        if (loginResult.Status == UserLoginStatus.InvalidCredentials)
+        {
+            return Unauthorized(new
+            {
+                message = "Invalid email or password."
+            });
+        }
+
+        if (loginResult.Status == UserLoginStatus.Inactive)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, new
+            {
+                message = "This account is inactive."
+            });
+        }
+
+        var token = _tokenService.CreateAccessToken(loginResult);
+
+        return Ok(new LoginResponseDto
+        {
+            AccessToken = token.Value,
+            TokenType = "Bearer",
+            ExpiresAt = token.ExpiresAt,
+            UserId = loginResult.UserId,
+            Name = loginResult.Name,
+            Email = loginResult.Email,
+            Type = loginResult.Type
+        });
     }
 }

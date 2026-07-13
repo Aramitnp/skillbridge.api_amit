@@ -6,6 +6,9 @@ namespace SkillBridge.Api.Repositories;
 
 public class UserRepository : IUserRepository
 {
+    private static readonly string DummyPasswordHash =
+        BCrypt.Net.BCrypt.HashPassword(Guid.NewGuid().ToString());
+
     private readonly SkillBridgeDbContext _context;
 
     public UserRepository(SkillBridgeDbContext context)
@@ -54,5 +57,39 @@ public class UserRepository : IUserRepository
         }
 
         return user;
+    }
+
+    public async Task<UserLoginResult> AuthenticateAsync(
+        LoginRequestDto request,
+        CancellationToken cancellationToken = default)
+    {
+        var normalizedEmail = request.Email.Trim().ToLowerInvariant();
+        var user = await _context.Users
+            .AsNoTracking()
+            .SingleOrDefaultAsync(
+                candidate => candidate.Email == normalizedEmail,
+                cancellationToken);
+
+        if (user is null)
+        {
+            BCrypt.Net.BCrypt.Verify(request.Password, DummyPasswordHash);
+            return UserLoginResult.InvalidCredentials();
+        }
+
+        if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+        {
+            return UserLoginResult.InvalidCredentials();
+        }
+
+        if (!user.IsActive)
+        {
+            return UserLoginResult.Inactive();
+        }
+
+        return UserLoginResult.Success(
+            user.Id,
+            user.Name,
+            user.Email,
+            user.Type);
     }
 }
