@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using SkillBridge.Api.Repositories.Interfaces;
 
+namespace SkillBridge.Api.Repositories;
 
 public class JobRepository : IJobRepository
 {

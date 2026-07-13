@@ -1,12 +1,17 @@
-using System.Security.Cryptography.X509Certificates;
+using System.ComponentModel.DataAnnotations;
 
 public class CreateUserRequestDto
 {
-    public string Name { get; set; }
+    [Required]
+    public string Name { get; set; } = string.Empty;
 
-    public string Email { get; set; }
+    [Required]
+    [EmailAddress]
+    public string Email { get; set; } = string.Empty;
 
-    public string Password { get; set; }
+    [Required]
+    public string Password { get; set; } = string.Empty;
 
-    public string type { get; set; }
+    [Required]
+    public string Type { get; set; } = string.Empty;
 }
