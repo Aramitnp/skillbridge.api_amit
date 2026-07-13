@@ -8,8 +8,14 @@ public class SkillBridgeDbContext : DbContext
     {
     }
 
-    // Define your DbSets here, for example:
-    // public DbSet<User> Users { get; set; }
+    public DbSet<User> Users => Set<User>();
 
-    public DbSet<User> Users { get; set; }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<User>()
+            .HasIndex(user => user.Email)
+            .IsUnique();
+    }
 }
